@@ -32,7 +32,7 @@ Usage: wf [-i] [-c] [-d path] word
 
 ## Functions
 
-### wf
+### 1. wf
 
 Find files including given word.
 
@@ -57,7 +57,7 @@ lib/librte_ether/rte_ethdev.h:183:#include "rte_ether.h"
        (Do not use if you pass output via pipeline, for exp 'wf .. | less')
   * d: Target directory
 
-### proxy
+### 2. proxy
 
 Enable/disable proxy settings
 
