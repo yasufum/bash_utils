@@ -1,4 +1,5 @@
 # word find
+
 wf () {
   WF_HELP_MSG="Usage: wf [-i] [-c] [-d path] word"
 
@@ -9,6 +10,7 @@ wf () {
 
   WF_COLOR_OPT=""
   WF_IGNORE_CASE=""
+  WF_INCLUDE_BIN="-I"
 
   while getopts d:cih opts; do
     case $opts in
@@ -20,6 +22,9 @@ wf () {
         ;;
       i)
         WF_IGNORE_CASE="-i";
+        ;;
+      b)
+        WF_INCLUDE_BIN=;
         ;;
       h)
         HELP_OPT=1;
@@ -34,14 +39,15 @@ wf () {
   if [ ${WF_ARGNUM} -eq 0 ]; then
     echo ${WF_HELP_MSG}
   elif [ ! ${WF_TARGET_DIR} = '' ]; then
-    find ${WF_TARGET_DIR} -type f | xargs egrep -n ${WF_IGNORE_CASE} ${WF_COLOR_OPT} "$1"
+    find ${WF_TARGET_DIR} -type f | xargs egrep -n ${WF_COLOR_OPT} ${WF_IGNORE_CASE} ${WF_INCLUDE_BIN} "$1"
   else
-    find . -type f | xargs egrep -n ${WF_IGNORE_CASE} ${WF_COLOR_OPT} "$1"
+    find . -type f | xargs egrep -n ${WF_COLOR_OPT} ${WF_IGNORE_CASE} ${WF_INCLUDE_BIN} "$1"
   fi
 
   # Finally, restore the previous OPTIND.
   OPTIND=$PREV_OPTIND
+  WF_TARGET_DIR=
   WF_COLOR_OPT=
   WF_IGNORE_CASE=
-  WF_TARGET_DIR=
+  WF_INCLUDE_BIN=
 }
