@@ -52,10 +52,12 @@ lib/librte_ether/rte_ethdev.h:183:#include "rte_ether.h"
 ```
 
 #### Options
+
   * i: Ignore case
   * c: Enable color mode to easily find given word from output
        (Do not use if you pass output via pipeline, for exp 'wf .. | less')
   * d: Target directory
+  * b: Include binary files for searching
 
 ### 2. proxy
 
