@@ -1,7 +1,7 @@
 # word find
 
 wf () {
-  WF_HELP_MSG="Usage: wf [-i] [-c] [-d path] word"
+  WF_HELP_MSG="Usage: wf [-i] [-c] [-d path] [b] word"
 
   # Backup previous OPTIND first because it must be set 1 while using getopts.
   # Without it, this command causes error if you use the command repeatedly.
