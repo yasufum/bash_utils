@@ -1,18 +1,22 @@
 # word find
 
 wf () {
-  WF_HELP_MSG="Usage: wf [-i] [-c] [-d path] [b] word"
+  # set -x
+
+  WF_HELP_MSG="Usage: wf [-i] [-c] [-d path] [-e ext] [b] word"
 
   # Backup previous OPTIND first because it must be set 1 while using getopts.
   # Without it, this command causes error if you use the command repeatedly.
   PREV_OPTIND=$OPTIND
   OPTIND=1
 
+  WF_TARGET_DIR="."
   WF_COLOR_OPT=""
   WF_IGNORE_CASE=""
   WF_INCLUDE_BIN="-I"
+  WF_EXCLUDE_EXT=""
 
-  while getopts d:cih opts; do
+  while getopts d:cie:bh opts; do
     case $opts in
       d)
         WF_TARGET_DIR=$OPTARG;
@@ -22,6 +26,9 @@ wf () {
         ;;
       i)
         WF_IGNORE_CASE="-i";
+        ;;
+      e)
+        WF_EXCLUDE_EXT="-not -name *.$OPTARG";
         ;;
       b)
         WF_INCLUDE_BIN=;
@@ -38,10 +45,10 @@ wf () {
 
   if [ ${WF_ARGNUM} -eq 0 ]; then
     echo ${WF_HELP_MSG}
-  elif [ ! ${WF_TARGET_DIR} = '' ]; then
-    find ${WF_TARGET_DIR} -type f | xargs egrep -n ${WF_COLOR_OPT} ${WF_IGNORE_CASE} ${WF_INCLUDE_BIN} "$1"
   else
-    find . -type f | xargs egrep -n ${WF_COLOR_OPT} ${WF_IGNORE_CASE} ${WF_INCLUDE_BIN} "$1"
+    find ${WF_TARGET_DIR} -type f ${WF_EXCLUDE_EXT} | \
+        xargs egrep -n \
+        ${WF_COLOR_OPT} ${WF_IGNORE_CASE} ${WF_INCLUDE_BIN} "$1"
   fi
 
   # Finally, restore the previous OPTIND.
@@ -50,4 +57,7 @@ wf () {
   WF_COLOR_OPT=
   WF_IGNORE_CASE=
   WF_INCLUDE_BIN=
+  WF_EXCLUDE_EXT=
+
+  # set +x
 }
