@@ -2,19 +2,20 @@
 
 ## What is this
 
-Utility functions for bash.
+Utility commands for bash.
 
-Activate all functions by adding it to your `.bashrc`
+Activate all commands in your `.bashrc`. Here is an example.
+
 
 ```sh
 # .bashrc
 
-for fp in `\find /path/to/bash_utils/*.sh -type f`; do
+for fp in `\find $HOME/bash_utils/*.sh -type f`; do
  source $fp
 done
 ```
 
-or load directly if you do not use all of them.
+Or load each of scripts if you do not use all of them.
 
 ```sh
 # .bashrc
@@ -23,14 +24,14 @@ source /path/to/bash_utils/wf.sh
 ...
 ```
 
-After loading scripts, you can call functions in your terminal.
+After activating scripts, you can call commands.
 
 ```sh
 $ wf
 Usage: wf [-i] [-c] [-d path] word
 ```
 
-## Functions
+## Commands
 
 ### 1. wf
 
@@ -38,7 +39,7 @@ Find files including given word.
 
 #### Example
 
-Find files including "rte_ether" in lib/ from
+Find files including `rte_ether` in `lib/` directory from
 DPDK's source code.
 
 ```sh
@@ -53,15 +54,18 @@ lib/librte_ether/rte_ethdev.h:183:#include "rte_ether.h"
 
 #### Options
 
-  * i: Ignore case
-  * c: Enable color mode to easily find given word from output
+  * d: Target directory.
+  * i: Ignore case.
+  * c: Enable color mode to easily find given word from output.
        (Do not use if you pass output via pipeline, for exp 'wf .. | less')
-  * d: Target directory
-  * b: Include binary files for searching
+  * e: Exclude specific extension, for example, `txt`, `map` or so.
+  * b: Include binary files for searching.
+  * h: Show help message.
+
 
 ### 2. proxy
 
-Enable/disable proxy settings
+Enable/disable proxy setting.
 
 #### Example
 
